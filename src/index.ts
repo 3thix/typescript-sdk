@@ -51,7 +51,7 @@ export type SyncUsersResponse = {
   data: SyncUsersSuccess;
 };
 
-export function NewSDK(environmnet: 'prod' | 'sandbox', apiKey: string): SDK {
+export default function Client(environmnet: 'prod' | 'sandbox', apiKey: string): SDK {
   let paymentBaseUrl = `https://${environmnet}-pay.3thix.com`;
   let apiBaseUrl = `https://${environmnet}-api.3thix.com`;
 
