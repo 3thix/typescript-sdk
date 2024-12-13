@@ -1,0 +1,35 @@
+{
+  "name": "3thix-typescript-sdk",
+  "version": "1.0.0",
+  "main":"dist/index.js",
+  "author":"3thix",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.105",
+    "axios": "^1.7.3",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "format": "prettier --write ./src/**"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "prettier": "^3.0.3",
+    "rollup": "^4.20.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.36.0"
+  }
+}
