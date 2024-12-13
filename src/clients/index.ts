@@ -3,6 +3,7 @@ import axios, { AxiosError } from 'axios';
 import {
   Cart,
   Error3thix,
+  SuccessAuthorizeFulfillment,
   SuccessCampaigns,
   SuccessCreateOrder,
   SuccessGetInvoice,
@@ -98,7 +99,7 @@ export function NewClient(baseURL: string, apiKey: string) {
     };
   }
 
-  async function authorizeFulfillment(invoice_id: string): Promise<RespAPI<SuccessCreateOrder>> {
+  async function authorizeFulfillment(invoice_id: string): Promise<RespAPI<SuccessAuthorizeFulfillment>> {
     const response = await instance.post('/invoice/fulfillment/authorize', {
       invoice_id,
     });
