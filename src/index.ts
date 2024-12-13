@@ -46,11 +46,11 @@ export type AuthorizeFulfillmentResponse = {
 
 export type GetCampaignResponse = {
   data: SuccessCampaigns;
-}
+};
 
 export type SyncUsersResponse = {
   data: SyncUsersSuccess;
-}
+};
 
 export function NewSDK(environmnet: 'prod' | 'sandbox', apiKey: string): SDK {
   let paymentBaseUrl = `https://${environmnet}-pay.3thix.com`;
@@ -80,10 +80,10 @@ export function NewSDK(environmnet: 'prod' | 'sandbox', apiKey: string): SDK {
         throw new Error((data as Error3thix).message);
       }
 
-      const resp = data as SuccessCreateOrder
+      const resp = data as SuccessCreateOrder;
       return {
         data: resp,
-        getPaymentUrl: () => `${paymentBaseUrl}?invoiceId=${resp.invoice_id}`
+        getPaymentUrl: () => `${paymentBaseUrl}?invoiceId=${resp.invoice_id}`,
       };
     },
     createOrderPurchase: async function (
@@ -92,15 +92,20 @@ export function NewSDK(environmnet: 'prod' | 'sandbox', apiKey: string): SDK {
       destinationCurrency: string,
       cart: Cart
     ) {
-      const { status, data } = await client.createOrderPurchase(amount, fulfillmentGameUserId, destinationCurrency, cart);
+      const { status, data } = await client.createOrderPurchase(
+        amount,
+        fulfillmentGameUserId,
+        destinationCurrency,
+        cart
+      );
       if (status !== 201) {
         throw new Error((data as Error3thix).message);
       }
 
-      const resp = data as SuccessCreateOrder
+      const resp = data as SuccessCreateOrder;
       return {
         data: resp,
-        getPaymentUrl: () => `${paymentBaseUrl}?invoiceId=${resp.invoice_id}`
+        getPaymentUrl: () => `${paymentBaseUrl}?invoiceId=${resp.invoice_id}`,
       };
     },
     authorizeFulfillment: async function (invoiceId: string) {
@@ -140,15 +145,21 @@ export function NewSDK(environmnet: 'prod' | 'sandbox', apiKey: string): SDK {
       sourceAccountId: string,
       fulfillmentGameUserId: string
     ) {
-      const { status, data } = await client.createOrderFulfillment(amount, currency, rail, sourceAccountId, fulfillmentGameUserId);
+      const { status, data } = await client.createOrderFulfillment(
+        amount,
+        currency,
+        rail,
+        sourceAccountId,
+        fulfillmentGameUserId
+      );
       if (status !== 201) {
         throw new Error((data as Error3thix).message);
       }
 
-      const resp = data as SuccessCreateOrder
+      const resp = data as SuccessCreateOrder;
       return {
         data: resp,
-        getPaymentUrl: () => `${paymentBaseUrl}?invoiceId=${resp.invoice_id}`
+        getPaymentUrl: () => `${paymentBaseUrl}?invoiceId=${resp.invoice_id}`,
       };
     },
   };
