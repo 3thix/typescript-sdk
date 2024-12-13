@@ -2,6 +2,8 @@ export type SuccessCreateOrder = {
   invoice_id: string;
 };
 
+export type SuccessAuthorizeFulfillment = SuccessCreateOrder;
+
 export interface Error3thix {
   error_code: string;
   message: string;
