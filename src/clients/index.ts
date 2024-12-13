@@ -46,7 +46,7 @@ export function NewClient(baseURL: string, apiKey: string) {
     };
   }
 
-  async function createOrderPayment(amount: number, currency: string): Promise<RespAPI<SuccessCreateOrder>> {
+  async function createOrderPayment(amount: string, currency: string): Promise<RespAPI<SuccessCreateOrder>> {
     const response = await instance.post('/order/payment/create', {
       currency,
       amount,
@@ -59,12 +59,10 @@ export function NewClient(baseURL: string, apiKey: string) {
   }
 
   async function createOrderPurchase(
-    amount: number,
     fulfillment_game_user_id: string,
     destination_currency: string,
     cart: Cart
   ): Promise<RespAPI<SuccessCreateOrder>> {
-    console.info('fixed currency for now', destination_currency);
     const response = await instance.post('/order/purchase/create', {
       fulfillment_game_user_id,
       type: 'PURCHASE',
@@ -79,7 +77,7 @@ export function NewClient(baseURL: string, apiKey: string) {
   }
 
   async function createOrderFulfillment(
-    amount: number,
+    amount: string,
     currency: string,
     rail: string,
     sourceAccountId: string,

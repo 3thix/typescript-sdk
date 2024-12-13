@@ -12,9 +12,8 @@ import {
 
 export interface SDK {
   invoiceGet(id: string): Promise<InvoiceGetResponse>;
-  createOrderPayment(amount: number, currency: string): Promise<CreateOrderResponse>;
+  createOrderPayment(amount: string, currency: string): Promise<CreateOrderResponse>;
   createOrderPurchase(
-    amount: number,
     fulfillmentGameUserId: string,
     destinationCurrency: string,
     cart: Cart
@@ -23,7 +22,7 @@ export interface SDK {
   getCampaigns(gameUserId: string): Promise<GetCampaignResponse>;
   syncUsersGame(req: SyncUsersReq): Promise<SyncUsersResponse>;
   createOrderFulfillment(
-    amount: number,
+    amount: string,
     currency: string,
     rail: string,
     sourceAccountId: string,
@@ -67,17 +66,21 @@ export function NewSDK(environmnet: 'prod' | 'sandbox', apiKey: string): SDK {
     invoiceGet: async function (id: string) {
       const { status, data } = await client.invoiceGet(id);
       if (status !== 200) {
-        throw new Error((data as Error3thix).message);
+        const errorResp = data as Error3thix;
+        console.error(errorResp);
+        throw new Error(errorResp.message);
       }
 
       return {
         data: data as SuccessGetInvoice,
       };
     },
-    createOrderPayment: async function (amount: number, currency: string) {
+    createOrderPayment: async function (amount: string, currency: string) {
       const { status, data } = await client.createOrderPayment(amount, currency);
       if (status !== 201) {
-        throw new Error((data as Error3thix).message);
+        const errorResp = data as Error3thix;
+        console.error(errorResp);
+        throw new Error(errorResp.message);
       }
 
       const resp = data as SuccessCreateOrder;
@@ -86,20 +89,12 @@ export function NewSDK(environmnet: 'prod' | 'sandbox', apiKey: string): SDK {
         getPaymentUrl: () => `${paymentBaseUrl}?invoiceId=${resp.invoice_id}`,
       };
     },
-    createOrderPurchase: async function (
-      amount: number,
-      fulfillmentGameUserId: string,
-      destinationCurrency: string,
-      cart: Cart
-    ) {
-      const { status, data } = await client.createOrderPurchase(
-        amount,
-        fulfillmentGameUserId,
-        destinationCurrency,
-        cart
-      );
+    createOrderPurchase: async function (fulfillmentGameUserId: string, destinationCurrency: string, cart: Cart) {
+      const { status, data } = await client.createOrderPurchase(fulfillmentGameUserId, destinationCurrency, cart);
       if (status !== 201) {
-        throw new Error((data as Error3thix).message);
+        const errorResp = data as Error3thix;
+        console.error(errorResp);
+        throw new Error(errorResp.message);
       }
 
       const resp = data as SuccessCreateOrder;
@@ -111,7 +106,9 @@ export function NewSDK(environmnet: 'prod' | 'sandbox', apiKey: string): SDK {
     authorizeFulfillment: async function (invoiceId: string) {
       const { status, data } = await client.authorizeFulfillment(invoiceId);
       if (status !== 200) {
-        throw new Error((data as Error3thix).message);
+        const errorResp = data as Error3thix;
+        console.error(errorResp);
+        throw new Error(errorResp.message);
       }
 
       return {
@@ -121,7 +118,9 @@ export function NewSDK(environmnet: 'prod' | 'sandbox', apiKey: string): SDK {
     getCampaigns: async function (gameUserId: string) {
       const { status, data } = await client.getCampaigns(gameUserId);
       if (status !== 200) {
-        throw new Error((data as Error3thix).message);
+        const errorResp = data as Error3thix;
+        console.error(errorResp);
+        throw new Error(errorResp.message);
       }
 
       return {
@@ -131,7 +130,9 @@ export function NewSDK(environmnet: 'prod' | 'sandbox', apiKey: string): SDK {
     syncUsersGame: async function (req: SyncUsersReq) {
       const { status, data } = await client.syncUsersGame(req);
       if (status !== 200) {
-        throw new Error((data as Error3thix).message);
+        const errorResp = data as Error3thix;
+        console.error(errorResp);
+        throw new Error(errorResp.message);
       }
 
       return {
@@ -139,7 +140,7 @@ export function NewSDK(environmnet: 'prod' | 'sandbox', apiKey: string): SDK {
       };
     },
     createOrderFulfillment: async function (
-      amount: number,
+      amount: string,
       currency: string,
       rail: string,
       sourceAccountId: string,
@@ -153,7 +154,9 @@ export function NewSDK(environmnet: 'prod' | 'sandbox', apiKey: string): SDK {
         fulfillmentGameUserId
       );
       if (status !== 201) {
-        throw new Error((data as Error3thix).message);
+        const errorResp = data as Error3thix;
+        console.error(errorResp);
+        throw new Error(errorResp.message);
       }
 
       const resp = data as SuccessCreateOrder;
